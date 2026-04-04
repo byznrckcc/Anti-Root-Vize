@@ -1,0 +1,13 @@
+name: 🛡️ Anti-Root Security Check
+
+on: [push]
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: 🔍 Check Script Permissions
+        run: ls -l scripts/auto_patcher.sh
+      - name: 🐳 Validate Docker Environment
+        run: docker build -t anti-root-env environment/

@@ -1,0 +1,12 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "🚀 APK Patch & Install",
+            "type": "shell",
+            "command": "bash scripts/auto_patcher.sh",
+            "group": { "kind": "build", "isDefault": true },
+            "problemMatcher": []
+        }
+    ]
+}
