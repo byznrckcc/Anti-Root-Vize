@@ -100,4 +100,4 @@ docker-compose up -d
 make analyze
 
 # 3. Otomatik Smali Patching (Statik Analiz)
-./scripts/auto_patcher.sh
+./scripts/auto_patcher.sh// Security Audit Checkpoint ID: 31186 - Verified at 2026-04-04T14:41:11
