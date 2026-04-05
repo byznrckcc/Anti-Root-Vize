@@ -55,4 +55,4 @@ Uygulamanın zafiyet analizi ve bypass stratejisi şu şekildedir:
 ## 🏁 Sonuç ve Başarı Kanıtı
 Yapılan çalışmalar sonucunda Anti-Root mekanizması tamamen etkisiz hale getirilmiş ve uygulamanın ana ekranına başarıyla ulaşılmıştır.
 
-![Bypass Success](./screenshots/IMG-20260404-WA0000(1).jpg)
+🔗 [Bypass Başarı Kanıtı (Görüntüle)](./screenshots/IMG-20260404-WA0000(1).jpg)
