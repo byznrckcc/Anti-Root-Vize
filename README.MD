@@ -1,7 +1,6 @@
 <p align="center">
-  <img src="./logo-istinye-renkli-2.svg" width="200">
+  <img src="./img/logo-istinye-renkli-2.svg" width="200">
 </p>
-
 <h1 align="center">🛡️ PROJE: ANTİ-ROOT ANALYSİS</h1>
 <p align="center">
   <strong>İstinye Üniversitesi - Bilgi Güvenliği Teknolojisi</strong><br>
