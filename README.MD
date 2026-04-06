@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://logovector.org/wp-content/uploads/2021/12/istinye-universitesi-logo-vektorel.png" width="200">
+  <img src="./img/logo-istinye-renkli-2.svg" width="200">
 </p>
 
 <h1 align="center">🛡️ PROJE: ANTİ-ROOT ANALYSİS</h1>
