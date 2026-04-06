@@ -1,0 +1,9 @@
+version: '3.8'
+services:
+  analyzer:
+    build: .
+    container_name: anti-root-vize-env
+    volumes:
+      - .:/analyze
+    stdin_open: true
+    tty: true

@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://logovector.org/wp-content/uploads/2021/12/istinye-universitesi-logo-vektorel.png" width="200" alt="İstinye Üniversitesi Logo">
+  <img src="./logo-istinye-renkli-2.svg" width="200">
 </p>
 
 <h1 align="center">🛡️ PROJE: ANTİ-ROOT ANALYSİS</h1>
@@ -22,7 +22,7 @@
 ## 🎬 PROJE DEMO VİDEOSU
 > **ÖNEMLİ:** Projenin bypass mekanizması, dinamik hooking süreci ve Antigravity AI doğrulaması aşağıdaki videoda yer almaktadır.
 > 
-> **İzlemek için tıklayın:** [🎥 Project Demo Video](./demo/project-demo.mkv)
+> **İzlemek için tıklayın:** [🎥 Project Demo Video](./demo/vokoscreenNG-2026-04-06_22-51-08.mkv)
 
 ---
 
