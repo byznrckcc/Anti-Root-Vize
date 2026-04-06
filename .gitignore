@@ -1,6 +1,7 @@
+build/
 *.keystore
 .DS_Store
 node_modules/
 .env
-build/
+*.log
 
