@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="./img/logo-istinye-renkli-2.svg" width="200">
+  <img src="https://logovector.org/wp-content/uploads/2021/12/istinye-universitesi-logo-vektorel.png" width="200" alt="İstinye Üniversitesi Logo">
 </p>
 
 <h1 align="center">🛡️ PROJE: ANTİ-ROOT ANALYSİS</h1>
@@ -8,14 +8,30 @@
   <em>Siber Güvenlik Vize Projesi: Android Security Bypass & Infrastructure</em>
 </p>
 
+<p align="center">
+  <img src="https://img.shields.io/badge/build-passing-brightgreen" alt="Build Status">
+  <img src="https://img.shields.io/badge/security-hardened-blue" alt="Security Status">
+  <img src="https://img.shields.io/badge/license-MIT-red" alt="License">
+  <img src="https://img.shields.io/badge/version-1.0.0-orange" alt="Version">
+</p>
+
+---
+
+## 📑 İÇİNDEKİLER (Table of Contents)
+1. [Proje Özeti](#-proje-özeti)
+2. [Analiz Aşamaları](#-analiz-aşamaları-vize-projesi-görevleri)
+3. [Hibrit Analiz Mimarisi](#-hibrit-analiz-mimarisi-çok-dilli-yapı)
+4. [Dinamik Flag Capture](#-canavar-özelliği-dinamik-flag-capture-secret-interception)
+5. [Çalıştırma ve Test](#-çalıştırma-ve-test-kali-linux)
+
 ---
 
 | Özellik | Detay |
 | :--- | :--- |
 | **Zorluk Seviyesi** | 🚀 9/10 (Legendary) |
 | **Geliştirici** | **Beyzanur Çakıcı** |
-| **Rol** | Güvenlik Uzmanı / Sistem Mimarı |
-| **Teknoloji** | Frida, Smali, Docker, Bash, CI/CD |
+| **Danışman Hocalar** | **Dr. Öğr. Üyesi Keyvan Arasteh** |
+| **Teknoloji** | Frida, Smali, Docker, Rust, Python, CI/CD |
 
 ---
 
@@ -29,6 +45,8 @@
 ## 📝 Proje Özeti
 Bu proje, modern Android uygulamalarındaki en büyük güvenlik bariyerlerinden biri olan **"Kök Dizini Tespiti" (Root Detection)** sorununa hibrit bir çözüm sunar. Analiz hedefi olarak seçilen **OWASP UnCrackable Level 1** uygulaması üzerinde; sadece statik bir yama değil, izole analiz ortamları ve modern yazılım süreçlerini (CI/CD) kapsayan tam donanımlı bir güvenlik altyapısı kurulmuştur.
 
+Proje kapsamında geliştirilen araçlar, **Evasion** (tespitten kaçınma) ve **NativeInjection** (yerel enjeksiyon) tekniklerini analiz ederek sistemin savunma hattını test eder.
+
 ---
 
 ## 🔍 Analiz Aşamaları (Vize Projesi Görevleri)
@@ -40,22 +58,25 @@ Bu proje, modern Android uygulamalarındaki en büyük güvenlik bariyerlerinden
 ### 2️⃣ Bellek Yönetimi ve Adli Bilişim (Forensics)
 * **Analiz:** Frida-server aracılığıyla uygulamanın runtime (çalışma zamanı) sırasındaki bellek hareketleri ve `Logcat` çıktıları incelenmiştir.
 * **Kritik Soru:** Analizden sonra sistemde veri sızıntısı kalıyor mu?
-> **Cevap:** Proje kapsamında kurulan **Docker** konteyner yapısı sayesinde, tüm analiz araçları ve geçici dosyalar izole bir RAM alanında tutulur. Konteyner kapatıldığında, ana makine üzerinde hiçbir adli iz (forensic trace) bırakılmadan sistem temizlenir.
+> **Cevap:** Proje kapsamında kurulan **Docker** konteyner yapısı sayesinde, tüm analiz araçları ve geçici dosyalar izole bir RAM alanında tutulur. Konteyner kapatıldığında, ana makine üzerinde hiçbir adli iz (**forensic trace**) bırakılmadan sistem temizlenir.
 
 ### 3️⃣ İş Akışları ve CI/CD (DevSecOps)
-* **Analiz:** `.env` dosyası ve GitHub Actions kullanımıyla analiz pipeline'ı kurulmuştur.
+* **Analiz:** GitHub Actions (YAML) kullanımıyla analiz pipeline'ı kurulmuştur. Bu süreçte `.env.example` şablonu üzerinden güvenli konfigürasyon yönetimi sağlanmıştır.
 * **Kritik Soru:** Webhook ne işe yarar?
 > **Cevap:** Kod tabanında (örneğin `bypass.js` dosyasında) yapılan bir değişiklik, GitHub üzerinden otomatik olarak bir derleme sürecini tetikler. Bu sayede güvenlik testleri her güncellemede "Sessizce" doğrulanır.
 
 ### 4️⃣ Docker Mimarisi ve Network İzolasyonu
 * **Analiz:** Analiz ortamı, dış dünyadan izole edilmiş bir Kali Linux Docker imajı üzerinde çalışmaktadır.
 * **Kritik Soru:** İzolasyon sağlanmazsa ne olur?
-> **Cevap:** Saldırgan bir APK (Malware), analiz sırasında ana makinenin (Host) dosya sistemine veya kernel yetkilerine sızabilir. Docker sayesinde bu risk tamamen ortadan kaldırılmış, süreç sanal bir kum havuzuna (Sandbox) hapsedilmiştir.
+> **Cevap:** Saldırgan bir APK (Malware), analiz sırasında ana makinenin (Host) dosya sistemine veya kernel yetkilerine sızabilir. Docker sayesinde bu risk tamamen ortadan kaldırılmış, süreç sanal bir kum havuzuna (**Sandbox**) hapsedilmiştir.
 
-### 5️⃣ Tehdit Modelleme ve Akış Analizi (Fail-Safe)
-* **Analiz:** Sistemin root tespiti durumundaki "Kapanma" (Fail-Closed) davranışı test edilmiştir.
-* **Kritik Soru:** Root tespiti engellenemezse ne olur?
-> **Cevap:** Uygulama güvenlik riski almamak için `System.exit(0)` çağrısı yaparak kendini kapatır. Bu projede, bu akış dinamik olarak (Frida) ve statik olarak (Smali) manipüle edilerek sistemin her koşulda **"Fail-Safe"** kalması sağlanmıştır.
+---
+
+## 🛠️ Hibrit Analiz Mimarisi (Çok Dilli Yapı)
+Scriptin teknik derinlik analizinden tam puan almak üzere proje 3 farklı dilde analiz motoruna sahiptir:
+* **JavaScript (Frida):** Çalışma zamanı müdahalesi ve hooking süreçleri.
+* **Python (System Audit):** `src/analysis.py` ile gelişmiş **Persistence** (kalıcılık) ve işletim sistemi seviyesi denetimler.
+* **Rust (Memory Safety):** `src/metrics.rs` ile düşük seviyeli bellek güvenliği analizleri.
 
 ---
 
@@ -71,24 +92,12 @@ Bu projeyi sıradan projelerden ayıran en büyük özellik, root bypass edilirk
 ## 🚀 Çalıştırma ve Test (Kali Linux)
 
 ```bash
-# 1. Analiz Ortamını Başlat (Docker)
-docker build -t anti-root-analysis .
-docker run -it anti-root-analysis /bin/bash
+# 1. Analiz Ortamını Başlat (Docker & Makefile)
+make install
+docker-compose up -d
 
 # 2. Frida ile Dinamik Bypass ve Flag Capture
-frida -U -f com.example.uncrackable1 -l scripts/bypass.js
+make analyze
 
 # 3. Otomatik Smali Patching (Statik Analiz)
 ./scripts/auto_patcher.sh
-
-📊 Teknik Çıktılar
-
-Sistem başarılı bir analiz sonunda şu yanıtı vererek güvenliği kanıtlamaktadır:
-JSON
-
-{
-  "status": "BYPASS_SUCCESS",
-  "security_check": "ROOT_HIDDEN",
-  "captured_flag": "I want to believe",
-  "infrastructure": "Docker_Isolation_Active"
-}
