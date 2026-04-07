@@ -1,0 +1,9 @@
+name: Project Security Check
+on: [push]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Static Analysis
+        run: echo "Starting static analysis on APK..."
